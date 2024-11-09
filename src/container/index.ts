@@ -1,7 +1,8 @@
 import { container } from 'tsyringe';
 import { ICategoriesRepository } from '../repositories/ICategoriesRepository';
 import { CategoriesRepository } from '../repositories/implementations/CategoriesRepository';
-import GetAllCategoriesUseCase from '../domain/useCases/categories/GetAllCategoriesUseCase';
+import GetAllCategoriesUseCase from '../aplication/useCases/categories/GetAllCategoriesUseCase';
+
 
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',

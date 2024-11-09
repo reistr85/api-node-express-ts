@@ -1,4 +1,4 @@
-import { BaseEntity } from "../../infra/base-classes/base-entity";
+import { BaseEntity } from "../../../shared/base-classes/base-entity";
 
 export class User extends BaseEntity {
   name: string;

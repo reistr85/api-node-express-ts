@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { BaseEntity } from "../../../shared/base-classes/base-entity";
 
 export type UserProps = {
@@ -8,6 +9,7 @@ export type UserProps = {
 }
 
 export class UserEntity extends BaseEntity {
+  uuid: string
   name: string;
   email: string;
   password: string;
@@ -15,5 +17,6 @@ export class UserEntity extends BaseEntity {
 
   constructor(private readonly userProps: UserProps) {
     super()
+    this.uuid = randomUUID()
   }
 }

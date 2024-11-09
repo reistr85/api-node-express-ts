@@ -8,14 +8,12 @@ export class CreateCompanyUseCase {
   constructor(private readonly companyRepository: ICompanyRepository) { }
 
   async handle(companyData: CreateCompanyDto): Promise<CreatedCompanyDto>{
-    const company = new CompanyEntity(companyData)
-    console.log(company)
-    const companyAlreadyExists = await this.companyRepository.findByUuid(company.uuid)
-
+    const companyAlreadyExists = await this.companyRepository.findByEmail(companyData.email)
     if (companyAlreadyExists) {
       throw new AlreadyExistsError('Company Already Exists')
     }
 
+    const company = new CompanyEntity(companyData)
     await this.companyRepository.save(company)
     const output = {
       uuid: company.uuid,

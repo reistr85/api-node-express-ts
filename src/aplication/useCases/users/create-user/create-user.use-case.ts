@@ -1,7 +1,7 @@
-import { UserEntity } from "../../../domain/entities/user/user.entity";
-import { IUserRepository } from "../../../domain/interfaces/user/user.interface";
-import { AlreadyExistsError } from "../../../shared/errors/already-exists.error";
-import { CreatedUserDto, CreateUserDto } from "./dtos/create-user.dto";
+import { UserEntity } from "../../../../domain/entities/user/user.entity"
+import { IUserRepository } from "../../../../domain/interfaces/user/user.interface"
+import { AlreadyExistsError } from "../../../../shared/errors/already-exists.error"
+import { CreateUserDto, CreatedUserDto } from "../dtos/create-user.dto"
 
 export class CreateUserUseCase {
   constructor(private readonly userRepository: IUserRepository) { }

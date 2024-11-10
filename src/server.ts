@@ -1,7 +1,7 @@
 import "reflect-metadata";
-import "./container";
+import "./infra/container";
 import express from 'express';
-import { categoriesRoutes } from './routes/categories.routes';
+import { categoriesRoutes } from './infra/routes/categories.routes';
 
 const app = express();
 app.use(express.json());

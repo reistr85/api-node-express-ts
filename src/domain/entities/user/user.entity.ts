@@ -15,12 +15,15 @@ export class UserEntity extends BaseEntity {
   password: string;
   companyId: string;
 
-  constructor(private readonly userProps: UserProps) {
+  constructor(userProps: UserProps) {
     super()
     this.name = userProps.name
     this.email = userProps.email
     this.password = userProps.password
     this.companyId = userProps.companyId
     this.uuid = randomUUID()
+    this.createdAt = new Date()
+    this.updatedAt = new Date()
+    this.deletedAt = null
   }
 }

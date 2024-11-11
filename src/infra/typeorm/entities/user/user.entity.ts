@@ -30,8 +30,12 @@ export class User extends BaseOrmEntity{
   email: string;
 
   //@ApiProperty()
-  @Column({ length: 20, nullable: false })
+  @Column({ nullable: false })
   password: string;
+
+  //@ApiProperty()
+  @Column({ length: 20, nullable: false })
+  role: string;
 
   //@ApiProperty()
   @Column({ default: true })
@@ -54,7 +58,7 @@ export class User extends BaseOrmEntity{
   deletedAt: Date;
 
   @Column()
-  companyId: string;
+  companyId: number;
 
   //@ApiProperty({ type: () => Company })
   @ManyToOne(() => Company, (company) => company.user)

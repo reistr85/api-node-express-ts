@@ -9,7 +9,6 @@ export const GetAllCompaniesController = async (req: Request, res: Response): Pr
 
     return res.status(200).json(companies);
   } catch (error: any) {
-      console.log(error)
       return res.status(400).json({ message: error.message });
   }
 }

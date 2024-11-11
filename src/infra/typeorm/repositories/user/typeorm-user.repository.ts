@@ -15,6 +15,7 @@ export class TypeORMUserRepository implements IUserRepository {
 
   async findByEmail(email: string): Promise<UserEntity | null> {
     const user = await this.ormRepository.findOne({ where: { email } })
+
     return user
   }
 
@@ -30,7 +31,8 @@ export class TypeORMUserRepository implements IUserRepository {
       name: userEntity.name,
       email: userEntity.email,
       password: userEntity.password,
-      companyId: userEntity.companyId
+      companyId: userEntity.companyId,
+      role: userEntity.role,
     }
     return new UserEntity(userProps);
   }
@@ -40,7 +42,8 @@ export class TypeORMUserRepository implements IUserRepository {
       name: user.name,
       email: user.email,
       password: user.password,
-      companyId: user.companyId
+      companyId: user.companyId,
+      role: user.role,
     });
     return await this.ormRepository.save(userEntity);
   }

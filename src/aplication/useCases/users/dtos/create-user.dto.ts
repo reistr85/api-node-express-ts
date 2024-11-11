@@ -12,17 +12,12 @@ export class CreateUserDto{
   @IsString()
   @IsNotEmpty()
   password: string;
-
-  @IsString()
-  @IsNotEmpty()
-  companyId: string;
 }
 
 export type CreatedUserDto = {
   uuid: string;
   name: string;
   email: string
-  companyId: string
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;

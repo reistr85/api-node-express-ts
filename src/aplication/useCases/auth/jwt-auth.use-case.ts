@@ -6,7 +6,7 @@ export class JwtAuthUseCase {
   private readonly secret = process.env.JWT_SECRET as string;
 
   generateToken(user: UserEntity): string {
-    return jwt.sign({ id: user.companyId, username: user.email }, this.secret, {
+    return jwt.sign({ name: user.name, email: user.email, companyId: user.companyId}, this.secret, {
       expiresIn: "1h"
     });
   }

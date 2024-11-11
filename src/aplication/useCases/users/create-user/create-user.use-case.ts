@@ -16,7 +16,12 @@ export class CreateUserUseCase {
       throw new AlreadyExistsError('User Already Exists')
     }
 
-    const user = new UserEntity(createUserDto)
+    const user = new UserEntity({
+      ...createUserDto,
+      companyId: "21321321"
+    })
+
+
     await this.userRepository.save(user)
     const output = {
       uuid: user.uuid,

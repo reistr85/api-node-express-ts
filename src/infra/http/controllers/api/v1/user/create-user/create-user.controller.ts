@@ -18,6 +18,6 @@ export const CreateUserController = async (req: Request, res: Response): Promise
 
     return res.status(201).json(user);
   } catch (error: any) {
-    return res.status(400).json({ message: error.message });
+    return res.status(error.statusCode).json({ message: error.message });
   }
 }

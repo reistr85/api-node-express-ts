@@ -4,7 +4,7 @@ import { TypeORMCompanyRepository } from "../typeorm/repositories/company/typeor
 import { container } from "tsyringe";
 import { IUserRepository } from "../../domain/interfaces/user/user.interface";
 import { TypeORMUserRepository } from "../typeorm/repositories/user/typeorm-user.repository";
-import { AuthenticateUserUseCase } from "../../aplication/useCases/auth/authenticate-user.use-case";
+import { LoginUserUseCase } from "../../aplication/useCases/auth/login-user.use-case";
 import { AppDataSource } from "../typeorm/index";
 import { Company } from "../typeorm/entities/company/company.entity";
 import { User } from "../typeorm/entities/user/user.entity";
@@ -19,8 +19,8 @@ const authRepositoryInstance = new JwtAuthUseCase();
 
 container.registerInstance<IUserRepository>('UserRepository', userRepositoryInstance);
 
-container.register<AuthenticateUserUseCase>("AuthenticateUserUseCase", {
-  useFactory: () => new AuthenticateUserUseCase(
+container.register<LoginUserUseCase>("LoginUserUseCase", {
+  useFactory: () => new LoginUserUseCase(
     userRepositoryInstance,
     authRepositoryInstance
   ),

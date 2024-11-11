@@ -19,7 +19,6 @@ export const CreateCompanyController = async (req: Request, res: Response): Prom
 
       return res.status(201).json(company);
   } catch (error: any) {
-      console.log(error)
       return res.status(400).json({ message: error.message });
   }
 }

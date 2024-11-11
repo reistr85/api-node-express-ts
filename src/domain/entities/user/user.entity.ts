@@ -5,7 +5,8 @@ export type UserProps = {
   name: string;
   email: string;
   password: string;
-  companyId: string;
+  companyId: number;
+  role: string;
 }
 
 export class UserEntity extends BaseEntity {
@@ -13,7 +14,8 @@ export class UserEntity extends BaseEntity {
   name: string;
   email: string;
   password: string;
-  companyId: string;
+  companyId: number;
+  role: string;
 
   constructor(userProps: UserProps) {
     super()
@@ -21,6 +23,7 @@ export class UserEntity extends BaseEntity {
     this.email = userProps.email
     this.password = userProps.password
     this.companyId = userProps.companyId
+    this.role = userProps.role
     this.uuid = randomUUID()
     this.createdAt = new Date()
     this.updatedAt = new Date()

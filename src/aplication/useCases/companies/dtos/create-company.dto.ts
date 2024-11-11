@@ -20,6 +20,14 @@ export class CreateCompanyDto{
   @IsString()
   @IsNotEmpty()
   email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  username: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
 }
 
 export type CreatedCompanyDto = {

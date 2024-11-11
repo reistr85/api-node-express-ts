@@ -25,8 +25,6 @@ describe('GetUserByUuidUseCase', () => {
       companyId: 'company-uuid',
     });
 
-    console.log(mockUser)
-
     // Configura o mock para retornar o usuário
     mockUserRepository.findByUuid.mockResolvedValueOnce(mockUser);
 

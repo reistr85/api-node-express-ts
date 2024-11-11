@@ -1,4 +1,3 @@
-// src/interface/controllers/AuthController.ts
 import { Request, Response } from "express";
 import { AuthenticateUserUseCase } from "../../../../../../aplication/useCases/auth/authenticate-user.use-case";
 import { container } from "tsyringe";

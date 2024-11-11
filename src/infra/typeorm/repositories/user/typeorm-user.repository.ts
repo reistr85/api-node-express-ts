@@ -3,7 +3,9 @@ import { User } from '../../entities/user/user.entity';
 import { UserEntity } from '../../../../domain/entities/user/user.entity';
 import { NotExistsError } from '../../../../shared/errors/not-exists.error';
 import { IUserRepository } from '../../../../domain/interfaces/user/user.interface';
+import { injectable } from "tsyringe";
 
+@injectable()
 export class TypeORMUserRepository implements IUserRepository {
   constructor(private readonly ormRepository: Repository<User>) { }
 

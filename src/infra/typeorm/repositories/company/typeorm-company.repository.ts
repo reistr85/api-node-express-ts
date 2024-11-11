@@ -3,7 +3,9 @@ import { CompanyEntity } from "../../../../domain/entities/company/company.entit
 import { ICompanyRepository } from "../../../../domain/interfaces/company/company.interface";
 import { NotExistsError } from "../../../../shared/errors/not-exists.error";
 import { Company } from "../../entities/company/company.entity";
+import { injectable } from "tsyringe";
 
+@injectable()
 export class TypeORMCompanyRepository implements ICompanyRepository {
   constructor(private readonly ormRepository: Repository<Company>) { }
 

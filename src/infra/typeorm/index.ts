@@ -17,13 +17,12 @@ export const AppDataSource = new DataSource({
   subscribers: [],
 });
 
-// Inicialize a conexão com o banco de dados
 export const initializeDatabase = async () => {
   try {
     await AppDataSource.initialize();
     console.log("Banco de dados conectado com sucesso!");
   } catch (error) {
     console.error("Erro ao conectar ao banco de dados:", error);
-    process.exit(1); // Finaliza o processo caso a conexão falhe
+    process.exit(1);
   }
 };

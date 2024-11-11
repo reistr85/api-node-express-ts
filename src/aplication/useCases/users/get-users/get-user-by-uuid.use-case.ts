@@ -1,8 +1,9 @@
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { IUserRepository } from "../../../../domain/interfaces/user/user.interface";
 import { NotExistsError } from "../../../../shared/errors/not-exists.error";
 import { GetUserByUuidOutputDto } from "../dtos/get-user-by-uuid.dto";
 
+@injectable()
 export class GetUserByUuidUseCase{
   constructor(
     @inject('UserRepository') private readonly userRepository: IUserRepository

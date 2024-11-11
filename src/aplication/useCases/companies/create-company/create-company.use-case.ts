@@ -1,10 +1,10 @@
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { CompanyEntity } from "../../../../domain/entities/company/company.entity";
 import { ICompanyRepository } from "../../../../domain/interfaces/company/company.interface";
 import { AlreadyExistsError } from "../../../../shared/errors/already-exists.error";
 import { CreateCompanyDto, CreatedCompanyDto } from "../dtos/create-company.dto";
 
-
+@injectable()
 export class CreateCompanyUseCase {
   constructor(
     @inject('CompanyRepository') private readonly companyRepository: ICompanyRepository

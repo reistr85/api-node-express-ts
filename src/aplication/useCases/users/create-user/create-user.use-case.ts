@@ -1,9 +1,10 @@
-import { inject } from "tsyringe"
+import { inject, injectable } from "tsyringe"
 import { UserEntity } from "../../../../domain/entities/user/user.entity"
 import { IUserRepository } from "../../../../domain/interfaces/user/user.interface"
 import { AlreadyExistsError } from "../../../../shared/errors/already-exists.error"
 import { CreateUserDto, CreatedUserDto } from "../dtos/create-user.dto"
 
+@injectable()
 export class CreateUserUseCase {
   constructor(
     @inject('UserRepository') private readonly userRepository: IUserRepository

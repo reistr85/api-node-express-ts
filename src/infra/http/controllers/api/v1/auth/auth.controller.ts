@@ -1,15 +1,13 @@
 // src/interface/controllers/AuthController.ts
 import { Request, Response } from "express";
 import { AuthenticateUserUseCase } from "../../../../../../aplication/useCases/auth/authenticate-user.use-case";
-import { JwtAuthUseCase } from "../../../../../../aplication/useCases/auth/jwt-auth.use-case";
+import { container } from "tsyringe";
 
 export class AuthController {
   private authenticateUser: AuthenticateUserUseCase;
 
   constructor() {
-    const userRepository
-    const authService = new JwtAuthUseCase();
-    this.authenticateUser = new AuthenticateUserUseCase(userRepository, authService);
+    this.authenticateUser = container.resolve(AuthenticateUserUseCase);
   }
 
   async login(req: Request, res: Response): Promise<Response> {

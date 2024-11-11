@@ -1,8 +1,9 @@
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { ICompanyRepository } from "../../../../domain/interfaces/company/company.interface";
 import { NotExistsError } from "../../../../shared/errors/not-exists.error";
 import { GetCompanyByUuidOutputDto } from "../dtos/get-company-by-uuid.dto";
 
+@injectable()
 export class GetCompanyByUuidUseCase {
   constructor(
     @inject('CompanyRepository') private readonly companyRepository: ICompanyRepository

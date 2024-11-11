@@ -4,35 +4,25 @@ import { User } from "../user/user.entity";
 
 @Entity('Companies')
 export class Company extends BaseOrmEntity {
-  @PrimaryGeneratedColumn()
-  //@ApiProperty({ readOnly: true })
+  @PrimaryGeneratedColumn("uuid")
   uuid: string;
 
-  @Column()
-  //@ApiProperty({ readOnly: true })
-  id: number;
-
-  //@ApiProperty()
-  @Column({ length: 150 })
+  @Column({ type: "varchar", length: 100 })
   corporateName: string;
 
-  //@ApiProperty()
-  @Column({ length: 50 })
+  @Column({ type: "varchar", length: 100 })
   tradeName: string;
 
-  @Column({ length: 50 })
+  @Column({ type: "varchar", length: 50 })
   email: string;
 
-  //@ApiProperty()
-  @Column({ length: 14 })
+  @Column({ type: "varchar", length: 18 }) // ajuste aqui para um tamanho maior
   cnpj: string;
 
-  //@ApiProperty()
-  @Column({ length: 20, nullable: true })
+  @Column({ type: "varchar", length: 15 }) // ajuste o tamanho para o necessário
   phone: string;
 
-  //@ApiProperty()
-  @Column({ default: true })
+  @Column({ type: "boolean", default: true })
   isActive: boolean;
 
   @Column({ nullable: true, default: () => 'CURRENT_TIMESTAMP' })

@@ -7,14 +7,19 @@ import { injectable } from "tsyringe";
 
 @injectable()
 export class TypeORMCompanyRepository implements ICompanyRepository {
-  constructor(private readonly ormRepository: Repository<Company>) { }
+  constructor(private readonly ormRepository: Repository<Company>) {}
 
   find(): Promise<CompanyEntity[]> {
     throw new Error('');
   }
 
-  findByEmail(email: string): Promise<CompanyEntity | undefined> {
-    throw new Error('Method not implemented.');
+  async findByEmail(email: string): Promise<CompanyEntity | null> {
+    const company = await this.ormRepository.findOne({
+      where: {
+        email
+      }
+    })
+    return company
   }
 
   updateByUuid(uuid: string): Promise<CompanyEntity> {

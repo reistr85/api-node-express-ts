@@ -5,18 +5,6 @@ export abstract class BaseOrmEntity {
   //@ApiProperty({ readOnly: true })
   id?: number;
 
-  @Column()
-  //@ApiProperty()
-  createdBy?: number;
-
-  @Column()
-  //@ApiProperty()
-  updatedBy?: number;
-
-  @Column()
-  //@ApiProperty()
-  deletedBy?: number;
-
   @Column({ nullable: true, default: () => 'CURRENT_TIMESTAMP' })
   //@ApiProperty({ readOnly: true })
   createdAt?: Date;

@@ -1,8 +1,24 @@
-export type CreateCompanyDto = {
+import { IsString, IsNotEmpty, IsUUID } from "class-validator";
+
+export class CreateCompanyDto{
+  @IsString()
+  @IsNotEmpty()
   corporateName: string;
+
+  @IsString()
+  @IsNotEmpty()
   tradeName: string;
+
+  @IsString()
+  @IsNotEmpty()
   cnpj: string;
+
+  @IsString()
+  @IsNotEmpty()
   phone: string;
+
+  @IsString()
+  @IsNotEmpty()
   email: string;
 }
 

@@ -1,10 +1,13 @@
+import { inject } from "tsyringe"
 import { UserEntity } from "../../../../domain/entities/user/user.entity"
 import { IUserRepository } from "../../../../domain/interfaces/user/user.interface"
 import { AlreadyExistsError } from "../../../../shared/errors/already-exists.error"
 import { CreateUserDto, CreatedUserDto } from "../dtos/create-user.dto"
 
 export class CreateUserUseCase {
-  constructor(private readonly userRepository: IUserRepository) { }
+  constructor(
+    @inject('UserRepository') private readonly userRepository: IUserRepository
+  ) { }
 
   async handle(createUserDto: CreateUserDto): Promise<CreatedUserDto>{
     const userAlreadyExists = await this.userRepository.findByEmail(createUserDto.email)

@@ -1,9 +1,12 @@
+import { inject } from "tsyringe";
 import { ICompanyRepository } from "../../../../domain/interfaces/company/company.interface";
 import { NotExistsError } from "../../../../shared/errors/not-exists.error";
 import { GetCompanyByUuidOutputDto } from "../dtos/get-company-by-uuid.dto";
 
 export class GetCompanyByUuidUseCase {
-  constructor(private readonly companyRepository: ICompanyRepository) { }
+  constructor(
+    @inject('CompanyRepository') private readonly companyRepository: ICompanyRepository
+  ) { }
 
   async handle(uuid: string): Promise<GetCompanyByUuidOutputDto>{
     const company = await this.companyRepository.findByUuid(uuid)

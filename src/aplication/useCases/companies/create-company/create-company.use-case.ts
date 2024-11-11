@@ -1,3 +1,4 @@
+import { inject } from "tsyringe";
 import { CompanyEntity } from "../../../../domain/entities/company/company.entity";
 import { ICompanyRepository } from "../../../../domain/interfaces/company/company.interface";
 import { AlreadyExistsError } from "../../../../shared/errors/already-exists.error";
@@ -5,7 +6,9 @@ import { CreateCompanyDto, CreatedCompanyDto } from "../dtos/create-company.dto"
 
 
 export class CreateCompanyUseCase {
-  constructor(private readonly companyRepository: ICompanyRepository) { }
+  constructor(
+    @inject('CompanyRepository') private readonly companyRepository: ICompanyRepository
+  ) { }
 
   async handle(companyData: CreateCompanyDto): Promise<CreatedCompanyDto>{
     const companyAlreadyExists = await this.companyRepository.findByEmail(companyData.email)

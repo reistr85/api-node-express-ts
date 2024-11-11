@@ -1,18 +1,10 @@
-import {
-  Column,
-  DeleteDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Company } from '../company/company.entity';
-import { BaseOrmEntity } from '../../../../shared/base-classes/typeorm/base.orm-entity';
-import { Url } from '../url/url.entity';
+import { Entity, PrimaryGeneratedColumn, Column, DeleteDateColumn, ManyToOne } from "typeorm";
+import { BaseOrmEntity } from "../../../../shared/base-classes/typeorm/base.orm-entity";
+import { Company } from "../company/company.entity";
+import { User } from "../user/user.entity";
 
-@Entity('Users')
-export class User extends BaseOrmEntity{
+@Entity('Urls')
+export class Url extends BaseOrmEntity {
   @PrimaryGeneratedColumn()
   //@ApiProperty({ readOnly: true })
   uuid: string;
@@ -23,15 +15,15 @@ export class User extends BaseOrmEntity{
 
   //@ApiProperty()
   @Column({ length: 150 })
-  name: string;
+  originalUrl: string;
 
   //@ApiProperty()
   @Column({ length: 150 })
-  email: string;
+  shortUrl: string;
 
   //@ApiProperty()
-  @Column({ length: 20, nullable: false })
-  password: string;
+  @Column()
+  userId: string;
 
   //@ApiProperty()
   @Column({ default: true })
@@ -53,14 +45,7 @@ export class User extends BaseOrmEntity{
   //@Exclude()
   deletedAt: Date;
 
-  @Column()
-  companyId: string;
-
   //@ApiProperty({ type: () => Company })
-  @ManyToOne(() => Company, (company) => company.user)
-  company: Company;
-
-  @JoinColumn()
-  @OneToMany(() => Url, (url) => url.user)
-  url: Url[];
+  @ManyToOne(() => User, (user) => user.url)
+  user: User;
 }

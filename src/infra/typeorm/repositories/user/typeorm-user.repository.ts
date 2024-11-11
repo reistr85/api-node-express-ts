@@ -13,15 +13,16 @@ export class TypeORMUserRepository implements IUserRepository {
     throw new Error('');
   }
 
-  findByEmail(email: string): Promise<UserEntity | undefined> {
-    throw new Error('Method not implemented.');
+  async findByEmail(email: string): Promise<UserEntity | null> {
+    const user = await this.ormRepository.findOne({ where: { email } })
+    return user
   }
 
   updateByUuid(uuid: string): Promise<UserEntity> {
     throw new Error('Method not implemented.');
   }
 
-  async findByUuid(uuid: string): Promise<UserEntity | undefined> {
+  async findByUuid(uuid: string): Promise<UserEntity | null> {
     const userEntity = await this.ormRepository.findOne({ where: { uuid } });
     if (!userEntity) throw new NotExistsError('User not exists');
 
@@ -36,9 +37,10 @@ export class TypeORMUserRepository implements IUserRepository {
 
   async save(user: UserEntity): Promise<UserEntity> {
     const userEntity = this.ormRepository.create({
-      uuid: user.uuid,
       name: user.name,
       email: user.email,
+      password: user.password,
+      companyId: user.companyId
     });
     return await this.ormRepository.save(userEntity);
   }

@@ -6,7 +6,7 @@ import { JwtAuthUseCase } from "./jwt-auth.use-case";
 export class AuthenticateUserUseCase {
   constructor(
     @inject('UserRepository') private userRepository: IUserRepository,
-    @inject('UserRepository') private authService: JwtAuthUseCase
+    @inject('AuthenticateUserUseCase') private authService: JwtAuthUseCase
   ) {}
 
   async execute(email: string, password: string): Promise<string | null> {

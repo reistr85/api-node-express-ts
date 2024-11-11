@@ -7,6 +7,8 @@ import { TypeORMUserRepository } from "../typeorm/repositories/user/typeorm-user
 import { AuthenticateUserUseCase } from "../../aplication/useCases/auth/authenticate-user.use-case";
 import { AppDataSource } from "../typeorm/index";
 import { Company } from "../typeorm/entities/company/company.entity";
+import { User } from "../typeorm/entities/user/user.entity";
+import { JwtAuthUseCase } from "../../aplication/useCases/auth/jwt-auth.use-case";
 
 
 container.register<ICompanyRepository>("CompanyRepository", {
@@ -14,9 +16,9 @@ container.register<ICompanyRepository>("CompanyRepository", {
 });
 
 container.register<IUserRepository>("UserRepository", {
-  useClass: TypeORMUserRepository,
+  useFactory: () => new TypeORMUserRepository(AppDataSource.getRepository(User)),
 });
 
-container.register("AuthenticateUserUseCase", {
-  useClass: AuthenticateUserUseCase,
+container.register<AuthenticateUserUseCase>("AuthenticateUserUseCase", {
+  useFactory: () => new AuthenticateUserUseCase(AppDataSource.getRepository(User), JwtAuthUseCase),
 });

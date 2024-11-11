@@ -3,7 +3,7 @@ import { PrimaryGeneratedColumn, Column, DeleteDateColumn } from "typeorm";
 export abstract class BaseOrmEntity {
   @PrimaryGeneratedColumn()
   //@ApiProperty({ readOnly: true })
-  id?: number;
+  id: number;
 
   @Column({ nullable: true, default: () => 'CURRENT_TIMESTAMP' })
   //@ApiProperty({ readOnly: true })

@@ -5,7 +5,7 @@ import { CreateCompanyDto } from "../../../../../../../aplication/useCases/compa
 import { validate } from "class-validator";
 import { container } from "tsyringe";
 
-export const createCompanyController = async (req: Request, res: Response): Promise<Response> => {
+export const CreateCompanyController = async (req: Request, res: Response): Promise<Response> => {
   try {
       const createCompanyDTO = plainToInstance(CreateCompanyDto, req.body);
 
@@ -21,5 +21,5 @@ export const createCompanyController = async (req: Request, res: Response): Prom
   } catch (error: any) {
       console.log(error)
       return res.status(400).json({ message: error.message });
-    }
   }
+}

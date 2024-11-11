@@ -9,8 +9,9 @@ import { injectable } from "tsyringe";
 export class TypeORMCompanyRepository implements ICompanyRepository {
   constructor(private readonly ormRepository: Repository<Company>) {}
 
-  find(): Promise<CompanyEntity[]> {
-    throw new Error('');
+  async find(): Promise<CompanyEntity[]> {
+    const companies = await this.ormRepository.find()
+    return companies
   }
 
   async findByEmail(email: string): Promise<CompanyEntity | null> {

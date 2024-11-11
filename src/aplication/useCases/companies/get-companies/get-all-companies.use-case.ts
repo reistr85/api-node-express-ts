@@ -1,17 +1,22 @@
-import { CompanyEntity } from "../../../../domain/entities/company/company.entity";
+import { inject, injectable } from "tsyringe";
 import { ICompanyRepository } from "../../../../domain/interfaces/company/company.interface";
 import { GetAllCompaniesOutputDto } from "../dtos/get-all-companies.dto";
+import { CompanyEntity } from "../../../../domain/entities/company/company.entity";
 
+@injectable()
 export class GetAllCompaniesUseCase {
-  constructor(private readonly companyRepository: ICompanyRepository) { }
+  constructor(
+    @inject('CompanyRepository') private readonly companyRepository: ICompanyRepository
+  ) { }
 
   async handle(): Promise<GetAllCompaniesOutputDto>{
     const companies = await this.companyRepository.find()
+
     const output = this.presentOutput(companies)
     return output
   }
 
-  private presentOutput(companies: CompanyEntity[]): GetAllCompaniesOutputDto{
+  private presentOutput(companies: CompanyEntity[]): GetAllCompaniesOutputDto {
     return {
       companies: companies.map((companies) => {
         return {
@@ -29,5 +34,4 @@ export class GetAllCompaniesUseCase {
       })
     }
   }
-
 }

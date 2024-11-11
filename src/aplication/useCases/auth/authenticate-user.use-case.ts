@@ -1,11 +1,10 @@
-// src/application/usecases/AuthenticateUser.ts
-
+import { inject } from "tsyringe";
 import { IUserRepository } from "../../../domain/interfaces/user/user.interface";
 import { JwtAuthUseCase } from "./jwt-auth.use-case";
 
 export class AuthenticateUserUseCase {
   constructor(
-    private userRepository: IUserRepository,
+    @inject('UserRepository') private userRepository: IUserRepository,
     private authService: JwtAuthUseCase
   ) {}
 

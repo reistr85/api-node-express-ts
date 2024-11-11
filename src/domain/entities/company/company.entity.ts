@@ -2,7 +2,6 @@ import { BaseEntity } from '../../../shared/base-classes/base-entity';
 import { randomUUID } from 'crypto';
 
 type CompanyProps = {
-  uuid?: string
   corporateName: string;
   tradeName: string;
   cnpj: string;
@@ -25,6 +24,10 @@ export class CompanyEntity extends BaseEntity{
     this.cnpj = companyProps.cnpj
     this.phone = companyProps.phone
     this.email = companyProps.email
+    this.createdAt = new Date()
+    this.updatedAt = new Date()
+    this.deletedAt = null
+    this.isActive = true
     if (!this.uuid) {
       this.uuid = randomUUID()
     }

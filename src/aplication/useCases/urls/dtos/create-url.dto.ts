@@ -1,8 +1,9 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString, IsUrl } from "class-validator";
 
 export class CreateUrlDto {
   @IsString()
   @IsNotEmpty()
+  @IsUrl()
   originalUrl: string;
 }
 
@@ -11,9 +12,11 @@ export type CreatedUrlDto = {
   uuid: string
   originalUrl: string
   shortUrl: string;
-  userId: string | null
+  newUrl: string;
+  userId: number | undefined
+  companyId: number | undefined
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date | null;
+  deletedAt: Date | undefined;
 }

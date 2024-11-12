@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { CreateCompanyUseCase } from "../../../../../../../aplication/useCases/companies/create-company/create-company.use-case";
 import { plainToInstance } from "class-transformer";
 import { LoginUserUseCase } from "../../../../../../../aplication/useCases/auth/login-user.use-case";
 import { LoginDto } from "../../../../../../../aplication/useCases/auth/dtos/login.dto";

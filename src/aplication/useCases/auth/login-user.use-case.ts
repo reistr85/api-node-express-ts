@@ -26,6 +26,7 @@ export class LoginUserUseCase {
     }
 
     const token = await this.authService.generateToken(user);
+    console.log(token)
     return {
       token
     } as LoginResponseDto;

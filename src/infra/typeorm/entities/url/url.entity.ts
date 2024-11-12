@@ -22,8 +22,8 @@ export class Url extends BaseOrmEntity {
   shortUrl: string;
 
   //@ApiProperty()
-  @Column()
-  userId: string;
+  @Column({ nullable: true })
+  userId: number;
 
   //@ApiProperty()
   @Column({ default: true })

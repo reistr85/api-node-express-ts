@@ -8,7 +8,7 @@ export class AuthMiddleware {
   handle(req: Request, res: Response, next: NextFunction): void {
     const token = req.headers.authorization?.split(" ")[1];
 
-    if (!token && req.originalUrl === '/urls') {
+    if ((!token && req.originalUrl === '/urls') || req.originalUrl === '/auth/login') {
       return next();
     }
 

@@ -9,15 +9,17 @@ export const CreateUrlController = async (req: Request, res: Response): Promise<
   try {
     const createUrlDto = plainToInstance(CreateUrlDto, req.body);
     const errors = await validate(createUrlDto);
+
     if (errors.length > 0) {
       return res.status(400).json({ errors });
     }
 
     const createUrlUseCase = container.resolve(CreateUrlUseCase);
-    const user = await createUrlUseCase.handle(req.user, createUrlDto);
+    const user = await createUrlUseCase.handle(createUrlDto, req.user);
 
     return res.status(201).json(user);
   } catch (error: any) {
+    console.log(error)
     return res.status(error.statusCode).json({ message: error.message });
   }
 }

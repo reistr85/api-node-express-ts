@@ -11,27 +11,34 @@ export class CreateUrlUseCase {
     @inject('UserRepository') private readonly userRepository: IUserRepository
   ) { }
 
-  async handle(createUrlDto: CreateUrlDto, user?: any): Promise<CreatedUrlDto | any>{
-    console.log(createUrlDto, user)
+  async handle(createUrlDto: CreateUrlDto, user?: any): Promise<CreatedUrlDto>{
+    let userLogged
+    if (user) {
+       userLogged = await this.userRepository.findByEmail(user.email)
+    }
+
+    if(!createUrlDto) throw new Error('Enter your URL')
+
     const url = new UrlEntity({
       ...createUrlDto,
-      userId: user.id,
-      // companyId: user.companyId
+      userId: userLogged?.id,
+      companyId: userLogged?.companyId
     })
 
     await this.urlRepository.save({
         ...url,
-        // companyId: user.companyId,
-        userId: user.id
-      })
+        userId: userLogged?.id,
+        companyId: userLogged?.companyId
+    })
 
-    await this.urlRepository.save(url)
     const output = {
       id: url.id,
       uuid: url.uuid,
       originalUrl: url.originalUrl,
       shortUrl: url.shortUrl,
+      newUrl: `http://localhost:3000/${url.shortUrl}`,
       userId: url.userId,
+      companyId: url.companyId,
       isActive: url.isActive,
       createdAt: url.createdAt,
       updatedAt: url.updatedAt,

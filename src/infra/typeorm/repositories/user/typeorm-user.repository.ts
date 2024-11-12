@@ -28,14 +28,7 @@ export class TypeORMUserRepository implements IUserRepository {
     const userEntity = await this.ormRepository.findOne({ where: { uuid } });
     if (!userEntity) throw new NotExistsError('User not exists');
 
-    const userProps = {
-      name: userEntity.name,
-      email: userEntity.email,
-      password: userEntity.password,
-      companyId: userEntity.companyId,
-      role: userEntity.role,
-    }
-    return new UserEntity(userProps);
+    return new UserEntity(userEntity);
   }
 
   async save(user: UserEntity): Promise<UserEntity> {

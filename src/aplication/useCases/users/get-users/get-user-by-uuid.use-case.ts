@@ -10,6 +10,8 @@ export class GetUserByUuidUseCase{
   ) { }
 
   async handle(uuid: string): Promise<GetUserByUuidOutputDto>{
+    if(!uuid) throw new Error('Please enter User Uuid!')
+
     const user = await this.userRepository.findByUuid(uuid)
     if (!user) {
       throw new NotExistsError('User not already exists')

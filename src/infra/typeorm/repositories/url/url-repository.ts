@@ -1,13 +1,41 @@
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { NotExistsError } from '../../../../shared/errors/not-exists.error';
 import { injectable } from "tsyringe";
 import { Url } from '../../entities/url/url.entity';
 import { IUrlRepository } from '../../../../domain/interfaces/urls/url.interface';
 import { UrlEntity } from '../../../../domain/entities/url/url.entity';
+import { DeletedUrlEntity, DeleteOutputDto } from '../../../../aplication/useCases/urls/dtos/delete-url.dto';
 
 @injectable()
 export class TypeORMUrlRepository implements IUrlRepository {
   constructor(private readonly ormRepository: Repository<Url>) { }
+  async delete(uuid: string | undefined): Promise<DeletedUrlEntity> {
+    const url = await this.ormRepository.findOne({
+      where: {
+        uuid
+      }
+    });
+
+    if(!url) throw new NotExistsError('Url not founded')
+
+    await this.ormRepository.update(url.uuid, {
+      isActive: false,
+      deletedAt: new Date()
+    })
+    const output = {
+      uuid: url.uuid,
+      originalUrl: url.originalUrl,
+      shortUrl: url.shortUrl,
+      clickCount: url.clickCount,
+      userId: url.userId,
+      isActive: url.isActive,
+      createdAt: url.createdAt,
+      updatedAt: url.updatedAt,
+      deletedAt: url.deletedAt,
+    }
+
+    return output
+  }
 
   async updateOriginalUrl(uuid: string | undefined, originalUrl: string | undefined): Promise<UrlEntity> {
     const url = await this.ormRepository.findOne({

@@ -5,4 +5,5 @@ export abstract class IUrlRepository {
   abstract find(uuid: string | undefined): Promise<UrlEntity[]>;
   abstract findByShortUrl(shortUrl: string): Promise<UrlEntity | undefined>;
   abstract updateClickCount(uuid: string | null, clickCount: number | null): Promise<void>;
+  abstract updateOriginalUrl(uuid: string | undefined, originalUrl: string | undefined): Promise<UrlEntity>;
 }

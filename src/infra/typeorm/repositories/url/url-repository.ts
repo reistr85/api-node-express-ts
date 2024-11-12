@@ -9,6 +9,29 @@ import { UrlEntity } from '../../../../domain/entities/url/url.entity';
 export class TypeORMUrlRepository implements IUrlRepository {
   constructor(private readonly ormRepository: Repository<Url>) { }
 
+  async updateOriginalUrl(uuid: string | undefined, originalUrl: string | undefined): Promise<UrlEntity> {
+    const url = await this.ormRepository.findOne({
+      where: {
+        uuid
+      }
+    })
+    if (!url) throw new NotExistsError('Url not founded')
+
+    await this.ormRepository.update(url?.uuid, {
+      originalUrl
+    })
+
+    const updatedUrl = await this.ormRepository.findOne({
+      where: {
+        uuid
+      }
+    })
+
+    if (!updatedUrl) throw new NotExistsError('Url not founded')
+
+    return updatedUrl
+  }
+
   async findByShortUrl(shortUrl: string): Promise<UrlEntity | undefined> {
     const url = await this.ormRepository.findOne({
       where: {

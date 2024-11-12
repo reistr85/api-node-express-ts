@@ -9,8 +9,9 @@ import { injectable } from "tsyringe";
 export class TypeORMUserRepository implements IUserRepository {
   constructor(private readonly ormRepository: Repository<User>) { }
 
-  find(): Promise<UserEntity[]> {
-    throw new Error('');
+  async find(): Promise<UserEntity[]> {
+    const users = await this.ormRepository.find()
+    return users
   }
 
   async findByEmail(email: string): Promise<UserEntity | null> {

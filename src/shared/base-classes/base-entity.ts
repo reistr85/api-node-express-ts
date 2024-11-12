@@ -3,5 +3,5 @@ export abstract class BaseEntity {
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date | undefined;
+  deletedAt: Date | null;
 }

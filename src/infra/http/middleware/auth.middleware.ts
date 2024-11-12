@@ -17,7 +17,7 @@ export class AuthMiddleware {
       (req as any).user = decoded;
       next();
     } catch {
-      res.status(401).json({ error: "Invalid token" });
+      res.status(401).json({ error: "Unauthorized" });
     }
   }
 }

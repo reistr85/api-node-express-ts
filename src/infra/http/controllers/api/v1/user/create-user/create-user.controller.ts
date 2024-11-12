@@ -14,7 +14,7 @@ export const CreateUserController = async (req: Request, res: Response): Promise
     }
 
     const createUserUseCase = container.resolve(CreateUserUseCase);
-    const user = await createUserUseCase.handle(createUserDto);
+    const user = await createUserUseCase.handle(req.user, createUserDto);
 
     return res.status(201).json(user);
   } catch (error: any) {

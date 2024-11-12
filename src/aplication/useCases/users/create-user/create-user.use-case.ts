@@ -10,24 +10,25 @@ export class CreateUserUseCase {
     @inject('UserRepository') private readonly userRepository: IUserRepository
   ) { }
 
-  async handle(createUserDto: CreateUserDto): Promise<CreatedUserDto>{
+  async handle(user: any, createUserDto: CreateUserDto): Promise<CreatedUserDto>{
     const userAlreadyExists = await this.userRepository.findByEmail(createUserDto.email)
     if (userAlreadyExists) {
       throw new AlreadyExistsError('User Already Exists')
     }
 
-    const user = new UserEntity({
+    const userEntity = new UserEntity({
       ...createUserDto,
-      companyId: "21321321"
+      companyId: user.companyId,
+      role: 'user'
     })
 
 
-    await this.userRepository.save(user)
+    await this.userRepository.save(userEntity)
     const output = {
-      uuid: user.uuid,
-      name: user.email,
-      email: user.email,
-      companyId: user.companyId,
+      uuid: userEntity.uuid,
+      name: userEntity.email,
+      email: userEntity.email,
+      companyId: userEntity.companyId,
       isActive: true,
       createdAt: new Date(),
       updatedAt: new Date(),

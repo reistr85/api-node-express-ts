@@ -11,15 +11,19 @@ export class CreateUrlUseCase {
     @inject('UserRepository') private readonly userRepository: IUserRepository
   ) { }
 
-  async handle(createUrlDto: CreateUrlDto): Promise<CreatedUrlDto>{
-    const urlHasBelonging = await this.userRepository.findByUuid(createUrlDto.userId)
-    const url = new UrlEntity(createUrlDto)
-    if (urlHasBelonging) {
-      await this.urlRepository.save({
+  async handle(createUrlDto: CreateUrlDto, user?: any): Promise<CreatedUrlDto | any>{
+    console.log(createUrlDto, user)
+    const url = new UrlEntity({
+      ...createUrlDto,
+      userId: user.id,
+      // companyId: user.companyId
+    })
+
+    await this.urlRepository.save({
         ...url,
-        userId: urlHasBelonging.uuid
+        // companyId: user.companyId,
+        userId: user.id
       })
-    }
 
     await this.urlRepository.save(url)
     const output = {

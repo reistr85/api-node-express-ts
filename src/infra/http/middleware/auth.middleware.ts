@@ -8,6 +8,10 @@ export class AuthMiddleware {
   handle(req: Request, res: Response, next: NextFunction): void {
     const token = req.headers.authorization?.split(" ")[1];
 
+    if (!token && req.originalUrl === '/urls') {
+      return next();
+    }
+
     if (!token) {
       throw res.status(401).json({ error: "Token missing" });
     }

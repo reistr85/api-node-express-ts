@@ -1,6 +1,9 @@
-export type CreateUrlDto = {
-  originalUrl: string
-  userId: string
+import { IsNotEmpty, IsString } from "class-validator";
+
+export class CreateUrlDto {
+  @IsString()
+  @IsNotEmpty()
+  originalUrl: string;
 }
 
 export type CreatedUrlDto = {

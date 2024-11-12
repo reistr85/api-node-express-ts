@@ -22,13 +22,13 @@ export class CreateUrlUseCase {
     const url = new UrlEntity({
       ...createUrlDto,
       userId: userLogged?.uuid,
-      companyId: userLogged?.uuid
+      companyId: userLogged?.companyId
     })
 
     await this.urlRepository.save({
         ...url,
         userId: userLogged?.uuid,
-        companyId: userLogged?.uuid
+        companyId: userLogged?.companyId
     })
 
     const output = {
@@ -37,6 +37,7 @@ export class CreateUrlUseCase {
       originalUrl: url.originalUrl,
       shortUrl: url.shortUrl,
       newUrl: `http://localhost:3000/${url.shortUrl}`,
+      clickCount: url.clickCount,
       userId: url.userId,
       companyId: url.companyId,
       isActive: url.isActive,

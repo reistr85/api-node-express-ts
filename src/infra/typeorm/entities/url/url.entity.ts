@@ -21,6 +21,9 @@ export class Url extends BaseOrmEntity {
   @Column({ length: 150 })
   shortUrl: string;
 
+  @Column({ type: 'int', default: 0 })
+  clickCount: number;
+
   //@ApiProperty()
   @Column({ nullable: true })
   userId: string;

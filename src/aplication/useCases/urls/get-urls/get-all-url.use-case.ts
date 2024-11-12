@@ -2,8 +2,8 @@ import { injectable, inject } from "tsyringe"
 import { UrlEntity } from "../../../../domain/entities/url/url.entity"
 import { IUrlRepository } from "../../../../domain/interfaces/urls/url.interface"
 import { IUserRepository } from "../../../../domain/interfaces/user/user.interface"
-import { UnauthorizedError } from "../../../../shared/errors/unauthorized.error"
 import { GetAllUrlsDto } from "../dtos/get-all-urls.dto"
+import { UnauthorizedError } from "../../../../shared/errors/unauthorized.error"
 
 @injectable()
 export class GetAllUrlsUseCase {
@@ -13,7 +13,8 @@ export class GetAllUrlsUseCase {
   ) { }
 
   async handle(user: any): Promise<GetAllUrlsDto>{
-    console.log(user)
+    if(!user) throw new UnauthorizedError()
+
     const userWhoOwnsTheURLs = await this.userRepository.findByEmail(user.email)
     const urls = await this.urlRepository.find(userWhoOwnsTheURLs?.uuid)
 
@@ -29,6 +30,7 @@ export class GetAllUrlsUseCase {
           uuid: url.uuid,
           originalUrl: url.originalUrl,
           shortUrl: url.shortUrl,
+          clickCount: url.clickCount,
           userId: url.userId,
           companyId: url.companyId,
           isActive: url.isActive,

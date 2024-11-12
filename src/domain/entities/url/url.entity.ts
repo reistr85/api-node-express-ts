@@ -13,6 +13,7 @@ export class UrlEntity extends BaseEntity {
   shortUrl: string;
   userId?: string | undefined
   companyId?: string | undefined
+  clickCount: number
 
   constructor(urlProps: UrlProps) {
     super()
@@ -21,6 +22,7 @@ export class UrlEntity extends BaseEntity {
     this.userId = urlProps.userId
     this.companyId = urlProps.companyId
     this.uuid = randomUUID()
+    this.clickCount = 0
     this.createdAt = new Date()
     this.updatedAt = new Date()
     this.deletedAt = undefined

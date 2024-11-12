@@ -18,5 +18,5 @@ export type CreatedUrlDto = {
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date | null;
+  deletedAt: Date | undefined;
 }

@@ -9,6 +9,27 @@ import { UrlEntity } from '../../../../domain/entities/url/url.entity';
 export class TypeORMUrlRepository implements IUrlRepository {
   constructor(private readonly ormRepository: Repository<Url>) { }
 
+  async findByShortUrl(shortUrl: string): Promise<UrlEntity | undefined> {
+    const url = await this.ormRepository.findOne({
+      where: {
+        shortUrl
+      }
+    })
+
+    if(!url) throw new NotExistsError('Url not exists!')
+
+    return url
+  }
+
+  async updateClickCount(uuid: string, clickCount: number): Promise<void> {
+    const url = await this.ormRepository.findOne({ where: { uuid } })
+    if(!url) throw new NotExistsError('Url not exists')
+
+    await this.ormRepository.update(url.uuid, {
+      clickCount: url.clickCount += 1
+    })
+  }
+
   async find(uuid: string): Promise<UrlEntity[]> {
     const urls = await this.ormRepository.find({
       where: {
@@ -16,8 +37,6 @@ export class TypeORMUrlRepository implements IUrlRepository {
       }
     })
 
-    console.log(uuid)
-    console.log(urls)
     return urls
   }
 

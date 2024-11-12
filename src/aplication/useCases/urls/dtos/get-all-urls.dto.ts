@@ -5,6 +5,7 @@ export interface GetAllUrlsDto {
     shortUrl: string,
     userId: string | undefined,
     companyId: string | undefined,
+    clickCount: number,
     isActive: boolean,
     createdAt: Date,
     updatedAt: Date,

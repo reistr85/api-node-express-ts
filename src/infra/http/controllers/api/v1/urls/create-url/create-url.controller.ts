@@ -19,7 +19,6 @@ export const CreateUrlController = async (req: Request, res: Response): Promise<
 
     return res.status(201).json(user);
   } catch (error: any) {
-    console.log(error)
     return res.status(error.statusCode).json({ message: error.message });
   }
 }

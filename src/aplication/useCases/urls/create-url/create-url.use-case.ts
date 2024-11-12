@@ -21,14 +21,14 @@ export class CreateUrlUseCase {
 
     const url = new UrlEntity({
       ...createUrlDto,
-      userId: userLogged?.id,
-      companyId: userLogged?.companyId
+      userId: userLogged?.uuid,
+      companyId: userLogged?.uuid
     })
 
     await this.urlRepository.save({
         ...url,
-        userId: userLogged?.id,
-        companyId: userLogged?.companyId
+        userId: userLogged?.uuid,
+        companyId: userLogged?.uuid
     })
 
     const output = {

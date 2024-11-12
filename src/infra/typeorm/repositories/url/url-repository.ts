@@ -1,8 +1,5 @@
 import { Repository } from 'typeorm';
-import { User } from '../../entities/user/user.entity';
-import { UserEntity } from '../../../../domain/entities/user/user.entity';
 import { NotExistsError } from '../../../../shared/errors/not-exists.error';
-import { IUserRepository } from '../../../../domain/interfaces/user/user.interface';
 import { injectable } from "tsyringe";
 import { Url } from '../../entities/url/url.entity';
 import { IUrlRepository } from '../../../../domain/interfaces/urls/url.interface';
@@ -12,8 +9,16 @@ import { UrlEntity } from '../../../../domain/entities/url/url.entity';
 export class TypeORMUrlRepository implements IUrlRepository {
   constructor(private readonly ormRepository: Repository<Url>) { }
 
-  find(): Promise<UrlEntity[]> {
-    throw new Error('');
+  async find(uuid: string): Promise<UrlEntity[]> {
+    const urls = await this.ormRepository.find({
+      where: {
+        userId: uuid
+      }
+    })
+
+    console.log(uuid)
+    console.log(urls)
+    return urls
   }
 
   updateByUuid(uuid: string): Promise<UrlEntity> {

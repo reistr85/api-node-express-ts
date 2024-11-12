@@ -1,3 +1,4 @@
+import { UrlEntity } from "../../entities/url/url.entity";
 import { UserEntity } from "../../entities/user/user.entity";
 
 export abstract class IUserRepository {
@@ -6,5 +7,5 @@ export abstract class IUserRepository {
   abstract findByEmail(email: string): Promise<UserEntity | null>;
   abstract findByUuid(uuid: string): Promise<UserEntity | null>;
   abstract updateByUuid(uuid: string): Promise<UserEntity>;
-
+  abstract delete(uuid: string | undefined): Promise<void>;
 }

@@ -5,7 +5,7 @@ import { User } from "../user/user.entity";
 
 @Entity('Urls')
 export class Url extends BaseOrmEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   //@ApiProperty({ readOnly: true })
   uuid: string;
 
@@ -23,7 +23,7 @@ export class Url extends BaseOrmEntity {
 
   //@ApiProperty()
   @Column({ nullable: true })
-  userId: number;
+  userId: string;
 
   //@ApiProperty()
   @Column({ default: true })

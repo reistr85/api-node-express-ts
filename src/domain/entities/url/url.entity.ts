@@ -3,16 +3,16 @@ import { BaseEntity } from "../../../shared/base-classes/base-entity";
 
 type UrlProps = {
   originalUrl: string
-  userId?: number
-  companyId?: number
+  userId?: string
+  companyId?: string
 }
 
 export class UrlEntity extends BaseEntity {
   uuid: string
   originalUrl: string
   shortUrl: string;
-  userId?: number | undefined
-  companyId?: number | undefined
+  userId?: string | undefined
+  companyId?: string | undefined
 
   constructor(urlProps: UrlProps) {
     super()

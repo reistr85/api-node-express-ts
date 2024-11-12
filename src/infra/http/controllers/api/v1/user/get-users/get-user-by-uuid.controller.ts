@@ -11,7 +11,6 @@ export const GetUserByUuidController = async (req: Request, res: Response): Prom
 
     return res.status(201).json(user);
   } catch (error: any) {
-    console.log(error)
     return res.status(error.statusCode).json({ message: error.message });
   }
 }

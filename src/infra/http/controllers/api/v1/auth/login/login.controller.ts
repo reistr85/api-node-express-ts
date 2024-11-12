@@ -20,7 +20,6 @@ export const LoginController = async (req: Request, res: Response): Promise<Resp
 
       return res.status(200).json(token);
   } catch (error: any) {
-    console.log(error)
       return res.status(error.statusCode).json({ message: error.message });
   }
 }

@@ -4,18 +4,34 @@ import { UserEntity } from '../../../../domain/entities/user/user.entity';
 import { NotExistsError } from '../../../../shared/errors/not-exists.error';
 import { IUserRepository } from '../../../../domain/interfaces/user/user.interface';
 import { injectable } from "tsyringe";
+import { UrlEntity } from '../../../../domain/entities/url/url.entity';
+import { UnauthorizedError } from '../../../../shared/errors/unauthorized.error';
+import { Url } from '../../entities/url/url.entity';
 
 @injectable()
 export class TypeORMUserRepository implements IUserRepository {
-  constructor(private readonly ormRepository: Repository<User>) { }
+  constructor(
+    private readonly userOrmRepository: Repository<User>,
+  ) { }
+
+  async delete(uuid: string): Promise<void> {
+    const user = await this.userOrmRepository.findOne({
+      where: {
+        uuid
+      }
+    })
+
+    if (!user) throw new NotExistsError('User not exists')
+    await this.userOrmRepository.delete(user.id)
+  }
 
   async find(): Promise<UserEntity[]> {
-    const users = await this.ormRepository.find()
+    const users = await this.userOrmRepository.find()
     return users
   }
 
   async findByEmail(email: string): Promise<UserEntity | null> {
-    const user = await this.ormRepository.findOne({ where: { email } })
+    const user = await this.userOrmRepository.findOne({ where: { email } })
 
     return user
   }
@@ -25,20 +41,20 @@ export class TypeORMUserRepository implements IUserRepository {
   }
 
   async findByUuid(uuid: string): Promise<UserEntity | null> {
-    const userEntity = await this.ormRepository.findOne({ where: { uuid } });
+    const userEntity = await this.userOrmRepository.findOne({ where: { uuid } });
     if (!userEntity) throw new NotExistsError('User not exists');
 
     return new UserEntity(userEntity);
   }
 
   async save(user: UserEntity): Promise<UserEntity> {
-    const userEntity = this.ormRepository.create({
+    const userEntity = this.userOrmRepository.create({
       name: user.name,
       email: user.email,
       password: user.password,
       companyId: user.companyId,
       role: user.role,
     });
-    return await this.ormRepository.save(userEntity);
+    return await this.userOrmRepository.save(userEntity);
   }
 }

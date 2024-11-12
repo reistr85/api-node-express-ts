@@ -13,7 +13,7 @@ import { Url } from '../url/url.entity';
 
 @Entity('Users')
 export class User extends BaseOrmEntity{
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   //@ApiProperty({ readOnly: true })
   uuid: string;
 

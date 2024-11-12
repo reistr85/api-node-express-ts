@@ -13,10 +13,10 @@ export type CreatedUrlDto = {
   originalUrl: string
   shortUrl: string;
   newUrl: string;
-  userId: number | undefined
-  companyId: number | undefined
+  userId: string | undefined
+  companyId: string | undefined
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date | undefined;
+  deletedAt: Date | null;
 }

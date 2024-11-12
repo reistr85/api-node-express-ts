@@ -1,7 +1,7 @@
-import { PrimaryGeneratedColumn, Column, DeleteDateColumn } from "typeorm";
+import { Column, DeleteDateColumn } from "typeorm";
 
 export abstract class BaseOrmEntity {
-  @PrimaryGeneratedColumn()
+  @Column({ type: "int", generated: "increment" })
   //@ApiProperty({ readOnly: true })
   id: number;
 

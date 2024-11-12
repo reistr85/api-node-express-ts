@@ -9,7 +9,6 @@ export const GetAllUsersController = async (req: Request, res: Response): Promis
 
     return res.status(201).json(users);
   } catch (error: any) {
-    console.log(error)
     return res.status(error.statusCode).json({ message: error.message });
   }
 }

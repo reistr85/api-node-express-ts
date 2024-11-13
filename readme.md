@@ -49,4 +49,6 @@ docker --version
 
 ## Rodar o container docker para subir o banco de dados\*\*:
 
+```bash
 docker compose up -d ou docker-compose up -d
+```

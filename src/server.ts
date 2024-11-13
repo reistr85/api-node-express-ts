@@ -1,11 +1,28 @@
-import "reflect-metadata";
-import "./container";
+require('dotenv').config();
 import express from 'express';
-import { categoriesRoutes } from './routes/categories.routes';
+import "reflect-metadata";
+import "./infra/container";
+import "./infra/container/index"
+import companyRoutes from './infra/routes/company/company.routes'
+import authRoute from './infra/routes/auth/auth.routes'
+import userRoutes from './infra/routes/user/user.routes'
+import urlsRoutes from "./infra/routes/urls/urls.routes";
+import { AppDataSource } from "./infra/typeorm";
 
 const app = express();
 app.use(express.json());
+app.use(companyRoutes)
+app.use(authRoute)
+app.use(userRoutes)
+app.use(urlsRoutes)
 
-app.use('/api/v1/categories', categoriesRoutes);
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Data Source has been initialized!");
+  })
+  .catch((err) => {
+    console.error("Error during Data Source initialization:", err);
+  });
 
-app.listen(3000, () => console.log('Server is run.'));
+
+app.listen(process.env.APP_PORT, () => console.log('Server is run.'));

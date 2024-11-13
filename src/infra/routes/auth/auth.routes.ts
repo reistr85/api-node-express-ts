@@ -3,14 +3,6 @@ import { LoginController } from '../../http/controllers/api/v1/auth/login/login.
 
 const router = Router();
 
-// const authController = new LoginController();
-// const authMiddleware = new AuthMiddleware();
-
 router.post('/auth/login', LoginController)
-
-// app.post("/auth/login", (req, res) => authController.login(req, res));
-// app.get("/protected", authMiddleware.handle, (req, res) => {
-//   res.json({ message: "You have access to this protected route!" });
-// });
 
 export default router;

@@ -7,9 +7,9 @@ export const GetUserByUuidController = async (req: Request, res: Response): Prom
     const userUuid = req.params.id
 
     const getUserByUuidUseCase = container.resolve(GetUserByUuidUseCase);
-    const user = await getUserByUuidUseCase.handle(userUuid);
+    const user = await getUserByUuidUseCase.handle(userUuid, req.user);
 
-    return res.status(201).json(user);
+    return res.status(200).json(user);
   } catch (error: any) {
     return res.status(error.statusCode).json({ message: error.message });
   }

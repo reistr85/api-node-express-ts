@@ -23,22 +23,24 @@ export class TypeORMCompanyRepository implements ICompanyRepository {
     return company
   }
 
-  updateByUuid(uuid: string): Promise<CompanyEntity> {
-    throw new Error('Method not implemented.');
+  async updateByUuid(uuid: string, data: any): Promise<CompanyEntity> {
+    const company = await this.ormRepository.findOne({
+      where: {
+        uuid
+      }
+    })
+    if(!company) throw new NotExistsError('Company not exists')
+
+    await this.ormRepository.update(company.uuid, {})
+
+    return company
   }
 
-  async findByUuid(uuid: string): Promise<CompanyEntity | undefined> {
+  async findByUuid(uuid: string): Promise<CompanyEntity> {
     const companyEntity = await this.ormRepository.findOne({ where: { uuid } });
     if (!companyEntity) throw new NotExistsError('User not exists');
 
-    const companyProps = {
-      corporateName: companyEntity.corporateName,
-      tradeName: companyEntity.tradeName,
-      cnpj: companyEntity.cnpj,
-      phone: companyEntity.phone,
-      email: companyEntity.email
-    }
-    return new CompanyEntity(companyProps);
+    return companyEntity;
   }
 
   async save(company: CompanyEntity): Promise<CompanyEntity> {

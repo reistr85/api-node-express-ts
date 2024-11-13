@@ -2,6 +2,7 @@ import { inject, injectable } from "tsyringe";
 import { IUserRepository } from "../../../../domain/interfaces/user/user.interface";
 import { NotExistsError } from "../../../../shared/errors/not-exists.error";
 import { GetUserByUuidOutputDto } from "../dtos/get-user-by-uuid.dto";
+import { UnauthorizedError } from "../../../../shared/errors/unauthorized.error";
 
 @injectable()
 export class GetUserByUuidUseCase{
@@ -9,13 +10,17 @@ export class GetUserByUuidUseCase{
     @inject('UserRepository') private readonly userRepository: IUserRepository
   ) { }
 
-  async handle(uuid: string): Promise<GetUserByUuidOutputDto>{
-    if(!uuid) throw new Error('Please enter User Uuid!')
+  async handle(uuid: string, user: any): Promise<GetUserByUuidOutputDto>{
+    if (!uuid) throw new Error('Please enter User Uuid!')
+    const userLogged = await this.userRepository.findByEmail(user.email)
+    if (!userLogged) throw new UnauthorizedError()
 
-    const user = await this.userRepository.findByUuid(uuid)
+    const foundUser = await this.userRepository.findByUuid(uuid)
     if (!user) {
       throw new NotExistsError('User not already exists')
     }
+
+    if(userLogged.companyId !== foundUser.companyId) throw new UnauthorizedError()
 
     const output = {
       uuid: user.uuid,

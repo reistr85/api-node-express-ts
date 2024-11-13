@@ -31,7 +31,7 @@ export class CreateCompanyUseCase {
       name: createCompanyDto.username,
       email: createCompanyDto.email,
       password:  await bcrypt.hash(createCompanyDto.password, 10),
-      companyId: companyCreated.id,
+      companyId: companyCreated.uuid,
       role: 'admin'
     })
 

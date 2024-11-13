@@ -2,9 +2,9 @@ export type GetUserByUuidOutputDto = {
   uuid: string;
   name: string;
   email: string;
-  companyId: number;
+  companyId: string;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date | null;
+  deletedAt: Date | undefined;
 }

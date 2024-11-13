@@ -7,7 +7,7 @@ export const GetAllUsersController = async (req: Request, res: Response): Promis
     const getUsersUseCase = container.resolve(GetAllUsersUseCase);
     const users = await getUsersUseCase.handle();
 
-    return res.status(201).json(users);
+    return res.status(200).json(users);
   } catch (error: any) {
     return res.status(error.statusCode).json({ message: error.message });
   }

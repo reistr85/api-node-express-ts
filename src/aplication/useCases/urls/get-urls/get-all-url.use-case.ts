@@ -4,6 +4,7 @@ import { IUrlRepository } from "../../../../domain/interfaces/urls/url.interface
 import { IUserRepository } from "../../../../domain/interfaces/user/user.interface"
 import { GetAllUrlsDto } from "../dtos/get-all-urls.dto"
 import { UnauthorizedError } from "../../../../shared/errors/unauthorized.error"
+import { nextTick } from "process"
 
 @injectable()
 export class GetAllUrlsUseCase {

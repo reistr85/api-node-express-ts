@@ -7,7 +7,7 @@ export const GetAllUrlsController = async (req: Request, res: Response): Promise
     const getAllUrlsUseCase = container.resolve(GetAllUrlsUseCase);
     const urls = await getAllUrlsUseCase.handle(req.user);
 
-    return res.status(201).json(urls);
+    return res.status(200).json(urls);
   } catch (error: any) {
     return res.status(error.statusCode).json({ message: error.message });
   }

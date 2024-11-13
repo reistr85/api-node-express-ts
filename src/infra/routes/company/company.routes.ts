@@ -4,7 +4,7 @@ import { AuthMiddleware } from '../../http/middleware/auth.middleware'
 
 const router = Router()
 
-router.post('/company', CreateCompanyController)
+router.post('/companies', CreateCompanyController)
 
 router.use((req, res, next) => new AuthMiddleware().handle(req, res, next));
 

@@ -13,7 +13,7 @@ export class GetAllUsersUseCase{
   async handle(): Promise<GetAllUsersDto>{
     const user = await this.userRepository.find()
     if (!user) {
-      throw new NotExistsError('User not already exists')
+      throw new NotExistsError('User not exists')
     }
 
     const output = this.presentOutput(user)

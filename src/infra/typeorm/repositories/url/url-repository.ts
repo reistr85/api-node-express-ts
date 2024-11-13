@@ -5,6 +5,7 @@ import { Url } from '../../entities/url/url.entity';
 import { IUrlRepository } from '../../../../domain/interfaces/urls/url.interface';
 import { UrlEntity } from '../../../../domain/entities/url/url.entity';
 import { DeletedUrlEntity, DeleteOutputDto } from '../../../../aplication/useCases/urls/dtos/delete-url.dto';
+import { UnauthorizedError } from '../../../../shared/errors/unauthorized.error';
 
 @injectable()
 export class TypeORMUrlRepository implements IUrlRepository {
@@ -23,6 +24,7 @@ export class TypeORMUrlRepository implements IUrlRepository {
       deletedAt: new Date()
     })
     const output = {
+      id: url.id,
       uuid: url.uuid,
       originalUrl: url.originalUrl,
       shortUrl: url.shortUrl,
@@ -87,12 +89,18 @@ export class TypeORMUrlRepository implements IUrlRepository {
         userId: uuid
       }
     })
+    if(!urls) throw new UnauthorizedError()
 
     return urls
   }
 
-  updateByUuid(uuid: string): Promise<UrlEntity> {
-    throw new Error('Method not implemented.');
+  async updateByUuid(uuid: string, data: any): Promise<void> {
+    const url = await this.ormRepository.findOne({ where: { uuid } })
+    if (!url) throw new NotExistsError('Url not exists')
+
+    await this.ormRepository.update(url.uuid, {
+
+    })
   }
 
   async findByUuid(uuid: string): Promise<UrlEntity | undefined> {

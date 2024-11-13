@@ -4,57 +4,60 @@ import { UserEntity } from '../../../../domain/entities/user/user.entity';
 import { NotExistsError } from '../../../../shared/errors/not-exists.error';
 import { IUserRepository } from '../../../../domain/interfaces/user/user.interface';
 import { injectable } from "tsyringe";
-import { UrlEntity } from '../../../../domain/entities/url/url.entity';
-import { UnauthorizedError } from '../../../../shared/errors/unauthorized.error';
-import { Url } from '../../entities/url/url.entity';
 
 @injectable()
 export class TypeORMUserRepository implements IUserRepository {
   constructor(
-    private readonly userOrmRepository: Repository<User>,
+    private readonly ormRepository: Repository<User>,
   ) { }
 
   async delete(uuid: string): Promise<void> {
-    const user = await this.userOrmRepository.findOne({
+    const user = await this.ormRepository.findOne({
       where: {
         uuid
       }
     })
 
     if (!user) throw new NotExistsError('User not exists')
-    await this.userOrmRepository.delete(user.id)
+    await this.ormRepository.delete(user.id)
   }
 
   async find(): Promise<UserEntity[]> {
-    const users = await this.userOrmRepository.find()
+    const users = await this.ormRepository.find()
     return users
   }
 
   async findByEmail(email: string): Promise<UserEntity | null> {
-    const user = await this.userOrmRepository.findOne({ where: { email } })
+    const user = await this.ormRepository.findOne({ where: { email } })
 
     return user
   }
 
-  updateByUuid(uuid: string): Promise<UserEntity> {
-    throw new Error('Method not implemented.');
+  async updateByUuid(uuid: string, data: any): Promise<UserEntity> {
+    const user = await this.ormRepository.findOne({ where: { uuid } })
+    if (!user) throw new NotExistsError('User not exists')
+
+    await this.ormRepository.update(user.uuid, {
+
+    })
+    return user
   }
 
-  async findByUuid(uuid: string): Promise<UserEntity | null> {
-    const userEntity = await this.userOrmRepository.findOne({ where: { uuid } });
+  async findByUuid(uuid: string): Promise<UserEntity> {
+    const userEntity = await this.ormRepository.findOne({ where: { uuid } });
     if (!userEntity) throw new NotExistsError('User not exists');
 
-    return new UserEntity(userEntity);
+    return userEntity
   }
 
   async save(user: UserEntity): Promise<UserEntity> {
-    const userEntity = this.userOrmRepository.create({
+    const userEntity = this.ormRepository.create({
       name: user.name,
       email: user.email,
       password: user.password,
       companyId: user.companyId,
       role: user.role,
     });
-    return await this.userOrmRepository.save(userEntity);
+    return await this.ormRepository.save(userEntity);
   }
 }

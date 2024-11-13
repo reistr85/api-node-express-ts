@@ -58,7 +58,7 @@ export class User extends BaseOrmEntity{
   deletedAt: Date;
 
   @Column()
-  companyId: number;
+  companyId: string;
 
   //@ApiProperty({ type: () => Company })
   @ManyToOne(() => Company, (company) => company.user)

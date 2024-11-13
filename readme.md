@@ -47,4 +47,6 @@ Antes de usar o Docker, verifique se ele está instalado na sua máquina. Para i
 docker --version
 ```
 
-**Rodar o container docker para subir o banco de dados**: docker compose up -d ou docker-compose up -d
+## Rodar o container docker para subir o banco de dados\*\*:
+
+docker compose up -d ou docker-compose up -d

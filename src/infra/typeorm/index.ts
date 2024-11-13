@@ -5,7 +5,7 @@ import { User } from "./entities/user/user.entity";
 import { Url } from "./entities/url/url.entity";
 
 export const AppDataSource = new DataSource({
-  type: "postgres",
+  type: 'postgres',
   host: 'localhost',
   port: 5432,
   username: 'postgres',

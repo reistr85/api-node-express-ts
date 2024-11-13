@@ -1,7 +1,13 @@
+import { IsNotEmpty, IsString, IsUrl } from "class-validator";
 import { UrlEntity } from "../../../../domain/entities/url/url.entity";
 
-export interface DeleteOutputDto{
-  message: string,
+export class DeleteOutputDto{
+  @IsNotEmpty()
+  @IsString()
+  message: string
+
+  @IsNotEmpty()
+  @IsUrl()
   url: UrlEntity
 }
 

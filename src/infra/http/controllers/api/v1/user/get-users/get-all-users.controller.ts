@@ -5,7 +5,7 @@ import { GetAllUsersUseCase } from "../../../../../../../aplication/useCases/use
 export const GetAllUsersController = async (req: Request, res: Response): Promise<Response> => {
   try {
     const getUsersUseCase = container.resolve(GetAllUsersUseCase);
-    const users = await getUsersUseCase.handle();
+    const users = await getUsersUseCase.handle(req.user);
 
     return res.status(200).json(users);
   } catch (error: any) {

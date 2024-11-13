@@ -1,14 +1,13 @@
+require('dotenv').config();
 import express from 'express';
 import "reflect-metadata";
 import "./infra/container";
-import "dotenv/config";
 import "./infra/container/index"
 import companyRoutes from './infra/routes/company/company.routes'
 import authRoute from './infra/routes/auth/auth.routes'
 import userRoutes from './infra/routes/user/user.routes'
 import urlsRoutes from "./infra/routes/urls/urls.routes";
 import { AppDataSource } from "./infra/typeorm";
-
 
 const app = express();
 app.use(express.json());
@@ -26,4 +25,4 @@ AppDataSource.initialize()
   });
 
 
-app.listen(3000, () => console.log('Server is run.'));
+app.listen(process.env.APP_PORT, () => console.log('Server is run.'));

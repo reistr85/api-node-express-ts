@@ -7,17 +7,16 @@ import { Url } from "./entities/url/url.entity";
 export const AppDataSource = new DataSource({
   type: 'postgres',
   host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: 'root',
-  database: 'postgres',
+  port: Number(process.env.DB_PORT),
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
   entities: [Company, User, Url],
   migrations: ["./migrations/*.ts"],
   subscribers: [],
 });
-
 
 export const initializeDatabase = async () => {
   try {

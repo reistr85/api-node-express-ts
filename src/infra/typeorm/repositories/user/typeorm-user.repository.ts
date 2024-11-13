@@ -22,8 +22,8 @@ export class TypeORMUserRepository implements IUserRepository {
     await this.ormRepository.delete(user.id)
   }
 
-  async find(): Promise<UserEntity[]> {
-    const users = await this.ormRepository.find()
+  async find(companyId: string): Promise<UserEntity[]> {
+    const users = await this.ormRepository.find({ where: { companyId } })
     return users
   }
 

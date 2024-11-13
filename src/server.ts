@@ -9,6 +9,7 @@ import userRoutes from './infra/routes/user/user.routes'
 import urlsRoutes from "./infra/routes/urls/urls.routes";
 import { AppDataSource } from "./infra/typeorm";
 
+
 const app = express();
 app.use(express.json());
 app.use(companyRoutes)
